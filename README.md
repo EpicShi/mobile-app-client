@@ -1,4 +1,9 @@
+# Client Mobile Application
+
 This repository contains the mobile application designed to provide a seamless user experience. This app is built using Expo and React Native to ensure smooth cross-platform functionality.
+
+[![GitHub Downloads (specific asset, latest release)](https://img.shields.io/github/downloads-pre/epicshi/mobile-app-client/latest/drishti_v0.0.1_pre_release.apk)](https://github.com/EpicShi/mobile-app-client/releases)
+
 
 ---
 

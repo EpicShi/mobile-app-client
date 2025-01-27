@@ -1,124 +1,268 @@
 import React from 'react';
-import { StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
-import { Text, View } from '@/components/Themed';
+import { StyleSheet, ScrollView, TouchableOpacity, Image, View as RNView, Platform } from 'react-native';
+import { Text } from '@/components/Themed';
 import { MaterialIcons } from '@expo/vector-icons';
 import user from '@/constants/UserData';
+import Animated, { FadeInUp, Layout } from 'react-native-reanimated';
+
+type MenuItemProps = {
+  icon: keyof typeof MaterialIcons.glyphMap;
+  label: string;
+  description?: string;
+  onPress?: () => void;
+  index: number;
+};
+
+const MenuItem = ({ icon, label, description, onPress, index }: MenuItemProps) => (
+  <Animated.View
+    entering={FadeInUp.delay(100 * index).springify()}
+    layout={Layout.springify()}
+  >
+    <TouchableOpacity style={styles.option} onPress={onPress}>
+      <RNView style={styles.optionContent}>
+        <RNView style={styles.iconContainer}>
+          <MaterialIcons name={icon} size={20} color="#22C55E" />
+        </RNView>
+        <RNView style={styles.optionTextContainer}>
+          <Text style={styles.optionText}>{label}</Text>
+          {description && <Text style={styles.optionDescription}>{description}</Text>}
+        </RNView>
+      </RNView>
+      <MaterialIcons name="chevron-right" size={20} color="#71717a" />
+    </TouchableOpacity>
+  </Animated.View>
+);
 
 export default function TabTwoScreen() {
   return (
-    <View style={styles.container}>
+    <RNView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <Text style={styles.headerTitle}>Account Information</Text>
+        <Animated.View 
+          entering={FadeInUp.springify()}
+          style={styles.header}
+        >
+          <Text style={styles.title}>Account</Text>
+          <Text style={styles.subtitle}>Manage your account settings and preferences</Text>
+        </Animated.View>
 
-        <View style={styles.card}>
-          <Image
-            source={user.image}
-            style={styles.profileImage}
-          />
+        <Animated.View 
+          entering={FadeInUp.delay(100).springify()}
+          style={styles.card}
+        >
+          <RNView style={styles.profileImageContainer}>
+            <Image source={user.image} style={styles.profileImage} />
+            <RNView style={styles.badgeContainer}>
+              <MaterialIcons name="verified" size={24} color="#22C55E" />
+            </RNView>
+          </RNView>
           <Text style={styles.name}>{user.name}</Text>
           <Text style={styles.email}>{user.email}</Text>
-        </View>
+          <TouchableOpacity style={styles.editProfileButton}>
+            <Text style={styles.editProfileText}>Edit Profile</Text>
+          </TouchableOpacity>
+        </Animated.View>
 
-        <TouchableOpacity style={styles.option}>
-          <MaterialIcons name="account-circle" size={24} color="#2f7a0a" />
-          <Text style={styles.optionText}>Edit Profile</Text>
-        </TouchableOpacity>
+        <Animated.View 
+          entering={FadeInUp.delay(200).springify()}
+          style={styles.section}
+        >
+          <Text style={styles.sectionTitle}>Account Settings</Text>
+          <MenuItem 
+            icon="account-circle" 
+            label="Personal Information" 
+            description="Update your personal details"
+            index={0}
+          />
+          <MenuItem 
+            icon="security" 
+            label="Security" 
+            description="Password and authentication"
+            index={1}
+          />
+          <MenuItem 
+            icon="notifications" 
+            label="Notifications" 
+            description="Manage notification preferences"
+            index={2}
+          />
+        </Animated.View>
 
-        <TouchableOpacity style={styles.option}>
-          <MaterialIcons name="security" size={24} color="#2f7a0a" />
-          <Text style={styles.optionText}>Change Password</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.option}>
-          <MaterialIcons name="notifications" size={24} color="#2f7a0a" />
-          <Text style={styles.optionText}>Notification Settings</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.option}>
-          <MaterialIcons name="language" size={24} color="#2f7a0a" />
-          <Text style={styles.optionText}>Change Language</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.option}>
-          <MaterialIcons name="help-outline" size={24} color="#2f7a0a" />
-          <Text style={styles.optionText}>Help & Support</Text>
-        </TouchableOpacity>
-
+        <Animated.View 
+          entering={FadeInUp.delay(300).springify()}
+          style={styles.section}
+        >
+          <Text style={styles.sectionTitle}>Preferences</Text>
+          <MenuItem 
+            icon="language" 
+            label="Language" 
+            description="Change app language"
+            index={3}
+          />
+          <MenuItem 
+            icon="help-outline" 
+            label="Help & Support" 
+            description="Get help or contact us"
+            index={4}
+          />
+          <MenuItem 
+            icon="info-outline" 
+            label="About" 
+            description="App version and information"
+            index={5}
+          />
+        </Animated.View>
       </ScrollView>
-    </View>
+    </RNView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#09090b',
   },
   scrollContent: {
-    padding: 20,
-    paddingBottom: 40,
+    padding: 16,
   },
-  headerTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center',
+  header: {
+    marginBottom: 24,
+    backgroundColor: '#09090b',
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: '600',
+    color: '#e2e2e5',
+    marginBottom: 4,
+  },
+  subtitle: {
+    fontSize: 14,
+    color: '#a1a1aa',
   },
   card: {
     alignItems: 'center',
-    backgroundColor: 'white',
-    padding: 20,
-    borderRadius: 12,
-    marginBottom: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    backgroundColor: '#18181b95',
+    padding: 24,
+    borderRadius: 16,
+    marginBottom: 32,
+    borderWidth: 1,
+    borderColor: '#22C55E30',
+    ...Platform.select({
+      ios: {
+        shadowColor: '#22C55E',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.2,
+        shadowRadius: 8,
+      },
+      android: {
+        elevation: 4,
+      },
+    }),
+  },
+  profileImageContainer: {
+    position: 'relative',
+    marginBottom: 16,
+    backgroundColor: '#18181b95',
   },
   profileImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    marginBottom: 10,
+    width: 96,
+    height: 96,
+    borderRadius: 48,
+    borderWidth: 2,
+    borderColor: '#22C55E30',
+  },
+  badgeContainer: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    backgroundColor: '#18181b95',
+    borderRadius: 12,
+    padding: 4,
+    borderWidth: 2,
+    borderColor: '#22C55E30',
   },
   name: {
     fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 5,
+    fontWeight: '600',
+    color: '#e2e2e5',
+    marginBottom: 4,
   },
   email: {
     fontSize: 14,
-    color: '#666',
+    color: '#94A3B8',
+    marginBottom: 16,
+  },
+  editProfileButton: {
+    backgroundColor: '#27272a',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#22C55E30',
+  },
+  editProfileText: {
+    color: '#e2e2e5',
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  section: {
+    marginBottom: 32,
+    backgroundColor: '#09090b',
+  },
+  sectionTitle: {
+    fontSize: 13,
+    fontWeight: '500',
+    color: '#71717a', 
+    marginBottom: 12,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
   },
   option: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'white',
-    padding: 15,
+    backgroundColor: '#18181b95',
+    padding: 16,
     borderRadius: 12,
-    marginBottom: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 2.5,
-    elevation: 3,
+    marginBottom: 8,
+    justifyContent: 'space-between',
+    borderWidth: 1,
+    borderColor: '#22C55E30',
+    ...Platform.select({
+      ios: {
+        shadowColor: '#22C55E',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.15,
+        shadowRadius: 8,
+      },
+      android: {
+        elevation: 4,
+      },
+    }),
+  },
+  optionContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+    },
+  iconContainer: {
+    width: 36,
+    height: 36,
+    borderRadius: 10,
+    backgroundColor: '#27272a',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 16,
+  },
+  optionTextContainer: {
+    flex: 1,
   },
   optionText: {
-    fontSize: 16,
-    marginLeft: 10,
-    color: '#333',
+    fontSize: 15,
+    color: '#e2e2e5',
+    fontWeight: '500',
+    marginBottom: 2,
   },
-  logoutButton: {
-    marginTop: 20,
-    backgroundColor: '#ff4d4d',
-    padding: 15,
-    borderRadius: 12,
-    alignItems: 'center',
-  },
-  logoutText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
+  optionDescription: {
+    fontSize: 13,
+    color: '#94A3B8',
   },
 });

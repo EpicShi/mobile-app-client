@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, ScrollView, View, Image, TouchableOpacity, Linking } from 'react-native';
+import { StyleSheet, ScrollView, View, Image, TouchableOpacity, Platform, Linking } from 'react-native';
 import { Text } from '@/components/Themed';
+import Animated, { FadeInUp, Layout } from 'react-native-reanimated';
 
 const schemes = [
   {
@@ -41,30 +42,42 @@ const schemes = [
 ];
 
 export default function TabOneScreen() {
-  const handleSchemePress = (url) => {
+  const handleSchemePress = (url: string) => {
     Linking.openURL(url);
   };
 
   return (
     <ScrollView style={styles.container}>
-      {/* Banner Image */}
-      {/* <Image
-        source={require('@/assets/images/schemes/banner.png')}
-        style={styles.bannerImage}
-        resizeMode="cover"
-      /> */}
-
-      <Text style={styles.title}>Government Schemes for Farmers</Text>
-      <View style={styles.separator} />
+      <Animated.View 
+        entering={FadeInUp.springify()}
+        style={styles.header}
+      >
+        <Text style={styles.title}>Government Schemes</Text>
+        <Text style={styles.subtitle}>Available programs for farmers</Text>
+      </Animated.View>
 
       {schemes.map((scheme, index) => (
-        <TouchableOpacity key={index} onPress={() => handleSchemePress(scheme.url)}>
-          <View style={styles.schemeContainer}>
-            <Image source={scheme.image} style={styles.schemeImage} />
-            <Text style={styles.schemeTitle}>{scheme.title}</Text>
-            <Text style={styles.schemeDescription}>{scheme.description}</Text>
-          </View>
-        </TouchableOpacity>
+        <Animated.View
+          key={index}
+          entering={FadeInUp.delay(100 * index).springify()}
+          layout={Layout.springify()}
+        >
+          <TouchableOpacity 
+            onPress={() => handleSchemePress(scheme.url)}
+            style={styles.cardPressable}
+          >
+            <View style={styles.schemeContainer}>
+              <Image source={scheme.image} style={styles.schemeImage} />
+              <View style={styles.contentContainer}>
+                <Text style={styles.schemeTitle}>{scheme.title}</Text>
+                <Text style={styles.schemeDescription}>{scheme.description}</Text>
+                <View style={styles.linkContainer}>
+                  <Text style={styles.linkText}>Learn more</Text>
+                </View>
+              </View>
+            </View>
+          </TouchableOpacity>
+        </Animated.View>
       ))}
     </ScrollView>
   );
@@ -73,53 +86,73 @@ export default function TabOneScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f9f9f9',
-    padding: 20,
+    backgroundColor: '#09090b',
+    padding: 16,
   },
-  bannerImage: {
-    width: '100%',
-    height: 200,
-    marginBottom: 20,
-    borderRadius: 8,
+  header: {
+    marginBottom: 24,
+    backgroundColor: '#09090b',
   },
   title: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 20,
-    color: '#006400',
+    fontSize: 28,
+    fontWeight: '600',
+    color: '#e2e2e5',
+    marginBottom: 4,
   },
-  separator: {
-    marginVertical: 10,
-    height: 1,
-    width: '100%',
-    backgroundColor: '#ccc',
+  subtitle: {
+    fontSize: 14,
+    color: '#a1a1aa',
+  },
+  cardPressable: {
+    marginBottom: 16,
+    borderRadius: 16,
+    backgroundColor: '#18181b95',
+    borderWidth: 1,
+    borderColor: '#22C55E30',
+    overflow: 'hidden',
+    ...Platform.select({
+      ios: {
+        shadowColor: '#22C55E',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.2,
+        shadowRadius: 8,
+      },
+      android: {
+        elevation: 4,
+      },
+    }),
   },
   schemeContainer: {
-    marginBottom: 15,
-    padding: 15,
-    borderRadius: 8,
-    backgroundColor: '#fff',
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    shadowOffset: { width: 0, height: 2 },
+    backgroundColor: '#18181b95',
+  },
+  contentContainer: {
+    padding: 16,
   },
   schemeImage: {
     width: '100%',
-    height: 150,
-    borderRadius: 8,
-    marginBottom: 10,
+    height: 200,
+    backgroundColor: '#27272a',
   },
   schemeTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
-    color: '#006400',
+    fontWeight: '600',
+    color: '#e2e2e5',
     marginBottom: 8,
+    letterSpacing: 0.1,
   },
   schemeDescription: {
     fontSize: 14,
-    color: '#333',
+    color: '#94A3B8',
     lineHeight: 20,
+    marginBottom: 16,
+  },
+  linkContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  linkText: {
+    fontSize: 14,
+    color: '#22C55E',
+    fontWeight: '500',
   },
 });

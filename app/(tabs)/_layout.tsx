@@ -1,4 +1,3 @@
-
 import React from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs, useRouter } from 'expo-router';
@@ -17,24 +16,26 @@ const HeaderTitle = ({ subtitle }: { subtitle: string }) => (
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
+    backgroundColor: '#09090b',
   }}>
-
-    <View>
+    <View style={{ backgroundColor: '#09090b' }}>
       <Text style={{
-        color: '#FFFFFF',
+        color: '#e2e2e5',
         fontSize: 22,
-        fontWeight: '700',
+        fontWeight: '600',
         fontFamily: Platform.OS === 'ios' ? 'Helvetica Neue' : 'sans-serif',
         letterSpacing: 1,
+        textShadowColor: 'rgba(74, 222, 128, 0.35)',
+        textShadowOffset: { width: 0, height: 0 },
+        textShadowRadius: 10,
       }}>
         Dristhi
       </Text>
       <Text style={{
-        color: '#FFFFFF',
+        color: '#a1a1aa',
         fontSize: 14,
         fontWeight: '500',
         fontFamily: Platform.OS === 'ios' ? 'Helvetica Neue' : 'sans-serif',
-        opacity: 0.9,
       }}>
         {subtitle}
       </Text>
@@ -45,29 +46,19 @@ const HeaderTitle = ({ subtitle }: { subtitle: string }) => (
 export default function TabLayout() {
   const commonScreenOptions = {
     headerShown: false,
-    // headerStyle: {
-    //   backgroundColor: '#006400',
-    //   elevation: 4,
-    //   shadowColor: '#000',
-    //   shadowOffset: { width: 0, height: 2 },
-    //   shadowOpacity: 0.2,
-    //   shadowRadius: 3,
-    //   height: Platform.OS === 'ios' ? 110 : 80,
-    // },
-    // headerTitleAlign: 'left' as const,
-    tabBarActiveTintColor: '#006400',
-    tabBarInactiveTintColor: '#666666',
+    tabBarActiveTintColor: '#4ade80',
+    tabBarInactiveTintColor: '#71717a',
     tabBarStyle: {
-      backgroundColor: '#FFFFFF',
+      backgroundColor: '#09090b',
       borderTopWidth: 1,
-      borderTopColor: '#E0E0E0',
+      borderTopColor: '#27272a',
       height: Platform.OS === 'ios' ? 88 : 64,
       paddingBottom: Platform.OS === 'ios' ? 28 : 8,
       paddingTop: 8,
     },
     tabBarLabelStyle: {
       fontSize: 12,
-      fontWeight: '500',
+      fontWeight: '500' as const,
       marginTop: 4,
     },
   };
@@ -90,10 +81,9 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <TabBarIcon name="bar-chart" color={color} />,
           headerRight: () => (
             <TouchableOpacity
-              // style={styles.quickAccessButton}
               onPress={() => { router.push('/modal') }}
             >
-              <TabBarIcon name="camera" color="#FFF" style={{ marginRight: 20 }} />
+              <FontAwesome name="camera" size={24} color="#FFF" style={{ marginRight: 20 }} />
             </TouchableOpacity>
           ),
         }}

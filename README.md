@@ -1,5 +1,3 @@
-# Drishti Mobile App
-
 This repository contains the mobile application designed to provide a seamless user experience. This app is built using Expo and React Native to ensure smooth cross-platform functionality.
 
 ---
@@ -67,8 +65,8 @@ mobile-app-client/
 
 ---
 
-<!-- ## Screenshots
+## Screenshots
 
-| Home Page                                                                 | Dashboard                                                              | Govt. Schemes                                                            | Account                                                            |
-|-----------------------------------------------------------------------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------------|
-| ![Home Screen](https://github.com/user-attachments/assets/54fba302-4711-4099-9bc3-97e21985e1fa) | ![Profile Screen](https://github.com/user-attachments/assets/2f3cabba-b86e-4832-9e50-234c15410215) | ![Settings Screen](https://github.com/user-attachments/assets/1bfec928-dd59-43f2-9c20-1c0a4c9a98ce) | ![About Us Screen](https://github.com/user-attachments/assets/51f3ccfa-64a2-4041-98d3-a582bfbad9a8) | -->
+| Home Page | Dashboard | Govt. Schemes | News | Account |
+|-|-|-|-|-|
+| ![image](https://github.com/user-attachments/assets/6a8b449b-cfe5-4988-99c2-adebfab60f5d) | ![image](https://github.com/user-attachments/assets/1793218f-e823-4161-b60f-7a5af4809109) | ![image](https://github.com/user-attachments/assets/f810ae7e-5c23-4b44-a004-633e758a870e) | ![image](https://github.com/user-attachments/assets/172497b5-f5ac-42af-bd0d-186d1678ab58) | ![image](https://github.com/user-attachments/assets/11b642db-1536-4c35-b3c2-8e9748d5ad2a)

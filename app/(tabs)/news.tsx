@@ -15,8 +15,9 @@ import { MaterialIcons } from '@expo/vector-icons';
 import Animated, { FadeInUp, Layout } from 'react-native-reanimated';
 import { LinearGradient } from 'expo-linear-gradient';
 
-const API_KEY = process.env.EXPO_PUBLIC_NEWS_API_KEY;
-const API_URL = `https://newsapi.org/v2/everything?q=(farmer OR agriculture OR "rural development" OR "farm laws" OR kisaan OR kisan) AND (India OR Maharashtra OR Punjab OR Karnataka OR "Uttar Pradesh")&language=en&sortBy=publishedAt&apiKey=${API_KEY}`;
+// const API_KEY = process.env.EXPO_PUBLIC_NEWS_API_KEY;
+// const API_URL = `https://newsapi.org/v2/everything?q=(farmer OR agriculture OR "rural development" OR "farm laws" OR kisaan OR kisan) AND (India OR Maharashtra OR Punjab OR Karnataka OR "Uttar Pradesh")&language=en&sortBy=publishedAt&apiKey=${API_KEY}`;
+const API_URL = `https://arpy8-plant-detection-api.hf.space/fetch-news`;
 
 export default function NewsPageScreen() {
   const [articles, setArticles] = useState([]);

@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { Text, View } from '@/components/Themed';
 import { MaterialIcons } from '@expo/vector-icons';
+import user from '@/constants/UserData';
 
 export default function TabTwoScreen() {
   return (
@@ -11,11 +12,11 @@ export default function TabTwoScreen() {
 
         <View style={styles.card}>
           <Image
-            source={require('@/assets/images/amba.png')}
+            source={user.image}
             style={styles.profileImage}
           />
-          <Text style={styles.name}>Amba Singh</Text>
-          <Text style={styles.email}>ambasingh@gmail.com</Text>
+          <Text style={styles.name}>{user.name}</Text>
+          <Text style={styles.email}>{user.email}</Text>
         </View>
 
         <TouchableOpacity style={styles.option}>

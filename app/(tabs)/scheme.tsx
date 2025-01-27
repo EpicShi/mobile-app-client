@@ -48,11 +48,11 @@ export default function TabOneScreen() {
   return (
     <ScrollView style={styles.container}>
       {/* Banner Image */}
-      <Image
+      {/* <Image
         source={require('@/assets/images/schemes/banner.png')}
         style={styles.bannerImage}
         resizeMode="cover"
-      />
+      /> */}
 
       <Text style={styles.title}>Government Schemes for Farmers</Text>
       <View style={styles.separator} />

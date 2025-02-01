@@ -4,9 +4,16 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { LineChart, BarChart } from 'react-native-chart-kit';
 import Animated, { FadeInUp, Layout } from 'react-native-reanimated';
 import { ScrollView, StyleSheet, Text, View, Platform } from 'react-native';
+import SampleData from '@/constants/SampleData';
 
 
 const screenWidth = Dimensions.get('window').width;
+const lastValue = SampleData[SampleData.length - 1]
+const secondLastValue = SampleData[SampleData.length - 2]
+
+const tempChange = lastValue.temperature - secondLastValue.temperature
+const humidityChange = lastValue.humidity - secondLastValue.humidity
+const soilMoistureChange = lastValue.soil_moisture - secondLastValue.soil_moisture
 
 export default function HomePageScreen() {
   return (
@@ -16,58 +23,85 @@ export default function HomePageScreen() {
         <Text style={styles.subtitle}>Monitor your farm's vital statistics</Text>
       </View>
 
-      <Animated.View 
-        entering={FadeInUp.delay(100).springify()} 
+      <Animated.View
+        entering={FadeInUp.delay(100).springify()}
         layout={Layout.springify()}
         style={styles.statsContainer}
       >
-        <Animated.View 
+        <Animated.View
           entering={FadeInUp.delay(200).springify()}
           style={styles.statsBox}
         >
           <MaterialIcons name="thermostat" size={24} color="#22C55E" style={styles.statsIcon} />
           <Text style={styles.statsLabel}>Temperature</Text>
           <View style={styles.statsValueContainer}>
-            <Text style={styles.statsValue}>{nodeStats.temperature.value}</Text>
+            <Text style={styles.statsValue}>{lastValue.temperature}</Text>
             <View style={styles.changeContainer}>
-              <MaterialIcons name="arrow-upward" size={12} color="#22C55E" />
-              <Text style={styles.changeText}>{nodeStats.temperature.change}</Text>
+              <MaterialIcons
+                name={tempChange >= 0 ? "arrow-upward" : "arrow-downward"}
+                color={tempChange >= 0 ? "#22C55E" : "#EF4444"}
+                size={12}
+              />
+              <Text style={
+                {
+                  ...styles.changeText,
+                  color: tempChange >= 0 ? "#22C55E" : "#EF4444"
+                }
+              }>{Math.round(Math.abs(tempChange) * 100) / 100}</Text>
             </View>
           </View>
         </Animated.View>
 
-        <Animated.View 
+        <Animated.View
           entering={FadeInUp.delay(300).springify()}
           style={styles.statsBox}
         >
           <MaterialIcons name="water-drop" size={24} color="#22C55E" style={styles.statsIcon} />
           <Text style={styles.statsLabel}>Humidity</Text>
           <View style={styles.statsValueContainer}>
-            <Text style={styles.statsValue}>{nodeStats.humidity.value}</Text>
+            <Text style={styles.statsValue}>{lastValue.humidity}</Text>
             <View style={styles.changeContainer}>
-              <MaterialIcons name="arrow-upward" size={12} color="#22C55E" />
-              <Text style={styles.changeText}>{nodeStats.humidity.change}</Text>
+              <MaterialIcons
+                name={humidityChange >= 0 ? "arrow-upward" : "arrow-downward"}
+                color={humidityChange >= 0 ? "#22C55E" : "#EF4444"}
+                size={12}
+              />
+              <Text style={
+                {
+                  ...styles.changeText,
+                  color: humidityChange >= 0 ? "#22C55E" : "#EF4444"
+                }
+              }>{Math.round(Math.abs(humidityChange) * 100) / 100}</Text>
             </View>
           </View>
         </Animated.View>
 
-        <Animated.View 
+        <Animated.View
           entering={FadeInUp.delay(400).springify()}
           style={styles.statsBox}
         >
           <MaterialIcons name="grass" size={24} color="#22C55E" style={styles.statsIcon} />
           <Text style={styles.statsLabel}>Soil Moisture</Text>
           <View style={styles.statsValueContainer}>
-            <Text style={styles.statsValue}>{nodeStats.soilMoisture.value}</Text>
+            <Text style={styles.statsValue}>{lastValue.soil_moisture}</Text>
             <View style={styles.changeContainer}>
-              <MaterialIcons name="arrow-upward" size={12} color="#22C55E" />
-              <Text style={styles.changeText}>{nodeStats.soilMoisture.change}</Text>
+              <MaterialIcons
+                name={soilMoistureChange >= 0 ? "arrow-upward" : "arrow-downward"}
+                color={soilMoistureChange >= 0 ? "#22C55E" : "#EF4444"}
+                size={12}
+              />
+              <Text style={
+                {
+                  ...styles.changeText,
+                  color: soilMoistureChange >= 0 ? "#22C55E" : "#EF4444"
+                }
+              }>{Math.round(Math.abs(soilMoistureChange) * 100) / 100}</Text>
             </View>
           </View>
         </Animated.View>
       </Animated.View>
 
-      <Animated.View 
+      <Animated.View
         entering={FadeInUp.delay(500).springify()}
         style={styles.card}
       >
@@ -82,7 +116,7 @@ export default function HomePageScreen() {
         />
       </Animated.View>
 
-      <Animated.View 
+      <Animated.View
         entering={FadeInUp.delay(600).springify()}
         style={styles.card}
       >
@@ -229,8 +263,8 @@ const chartConfig = {
   backgroundGradientFrom: '#121215',
   backgroundGradientTo: '#121215',
   decimalPlaces: 2,
-  color: (opacity = 1) => `rgba(74, 222, 128, ${opacity})`, 
-  labelColor: (opacity = 1) => `rgba(161, 161, 170, ${opacity})`, 
+  color: (opacity = 1) => `rgba(74, 222, 128, ${opacity})`,
+  labelColor: (opacity = 1) => `rgba(161, 161, 170, ${opacity})`,
   style: {
     borderRadius: 16,
   },

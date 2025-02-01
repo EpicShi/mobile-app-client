@@ -15,7 +15,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import Animated, { FadeInUp, Layout } from 'react-native-reanimated';
 import { LinearGradient } from 'expo-linear-gradient';
 
-// const API_KEY = process.env.EXPO_PUBLIC_NEWS_API_KEY;
+
 const API_URL = `https://arpy8-drishti-api.hf.space/fetch-news`;
 
 export default function NewsPageScreen() {
@@ -31,7 +31,7 @@ export default function NewsPageScreen() {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Drishti-Auth-Key': btoa('MjkwNw==')
+          'Drishti-Auth-Key': '2907'
         }
       });
 
@@ -41,6 +41,7 @@ export default function NewsPageScreen() {
         setArticles(data.articles);
         setError(null);
       } else {
+        console.log(data);
         setError('Failed to fetch news');
       }
     } catch (err) {

@@ -117,6 +117,21 @@ export default function HomePageScreen() {
       </Animated.View>
 
       <Animated.View
+        entering={FadeInUp.delay(500).springify()}
+        style={styles.card}
+      >
+        <Text style={styles.chartTitle}>Soil Moisture Levels Over Time</Text>
+        <LineChart
+          data={humidityData}
+          width={screenWidth - 72}
+          height={160}
+          chartConfig={chartConfig}
+          style={styles.chart}
+          bezier
+        />
+      </Animated.View>
+
+      {/* <Animated.View
         entering={FadeInUp.delay(600).springify()}
         style={styles.card}
       >
@@ -130,7 +145,7 @@ export default function HomePageScreen() {
           yAxisLabel=""
           yAxisSuffix="%"
         />
-      </Animated.View>
+      </Animated.View> */}
     </ScrollView>
   );
 }
@@ -189,8 +204,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
-    gap: 12,
-    marginBottom: 16,
+    gap: 16,
+    marginBottom: 10,
   },
   statsBox: {
     flex: 1,
@@ -250,15 +265,6 @@ const humidityData = {
   ],
 };
 
-const soilData = {
-  labels: ['Corn', 'Wheat', 'Rice'],
-  datasets: [
-    {
-      data: [45, 60, 55],
-    },
-  ],
-};
-
 const chartConfig = {
   backgroundGradientFrom: '#121215',
   backgroundGradientTo: '#121215',
@@ -275,19 +281,4 @@ const chartConfig = {
   },
   fillShadowGradient: '#4ADE80',
   fillShadowGradientOpacity: 0.2,
-};
-
-const nodeStats = {
-  temperature: {
-    value: '32.1°C',
-    change: '2.1°C',
-  },
-  humidity: {
-    value: '39.0%',
-    change: '2.4%',
-  },
-  soilMoisture: {
-    value: '763',
-    change: '291',
-  },
 };

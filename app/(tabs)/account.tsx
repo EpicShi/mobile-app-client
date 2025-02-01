@@ -4,6 +4,7 @@ import { Text } from '@/components/Themed';
 import { MaterialIcons } from '@expo/vector-icons';
 import user from '@/constants/UserData';
 import Animated, { FadeInUp, Layout } from 'react-native-reanimated';
+import { router } from 'expo-router';
 
 type MenuItemProps = {
   icon: keyof typeof MaterialIcons.glyphMap;
@@ -12,6 +13,13 @@ type MenuItemProps = {
   onPress?: () => void;
   index: number;
 };
+
+type ScreenRoute = 
+  | '/(account)/personal-information'
+  | '/(account)/security'
+  | '/(account)/notifications'
+  | '/(account)/help-support'
+  | '/(account)/about';
 
 const MenuItem = ({ icon, label, description, onPress, index }: MenuItemProps) => (
   <Animated.View
@@ -34,6 +42,10 @@ const MenuItem = ({ icon, label, description, onPress, index }: MenuItemProps) =
 );
 
 export default function TabTwoScreen() {
+  const navigateToScreen = (screen: ScreenRoute) => {
+    router.push(screen);
+  };
+
   return (
     <RNView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
@@ -57,7 +69,10 @@ export default function TabTwoScreen() {
           </RNView>
           <Text style={styles.name}>{user.name}</Text>
           <Text style={styles.email}>{user.email}</Text>
-          <TouchableOpacity style={styles.editProfileButton}>
+          <TouchableOpacity 
+            style={styles.editProfileButton}
+            onPress={() => navigateToScreen('/(account)/personal-information')}
+          >
             <Text style={styles.editProfileText}>Edit Profile</Text>
           </TouchableOpacity>
         </Animated.View>
@@ -71,18 +86,21 @@ export default function TabTwoScreen() {
             icon="account-circle" 
             label="Personal Information" 
             description="Update your personal details"
+            onPress={() => navigateToScreen('/(account)/personal-information')}
             index={0}
           />
           <MenuItem 
             icon="security" 
             label="Security" 
             description="Password and authentication"
+            onPress={() => navigateToScreen('/(account)/security')}
             index={1}
           />
           <MenuItem 
             icon="notifications" 
             label="Notifications" 
             description="Manage notification preferences"
+            onPress={() => navigateToScreen('/(account)/notifications')}
             index={2}
           />
         </Animated.View>
@@ -102,12 +120,14 @@ export default function TabTwoScreen() {
             icon="help-outline" 
             label="Help & Support" 
             description="Get help or contact us"
+            onPress={() => navigateToScreen('/(account)/help-support')}
             index={4}
           />
           <MenuItem 
             icon="info-outline" 
             label="About" 
             description="App version and information"
+            onPress={() => navigateToScreen('/(account)/about')}
             index={5}
           />
         </Animated.View>

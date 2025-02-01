@@ -22,7 +22,7 @@ export default function NewsPageScreen() {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchNews = async () => {
     try {
@@ -41,11 +41,10 @@ export default function NewsPageScreen() {
         setArticles(data.articles);
         setError(null);
       } else {
-        console.log(data);
-        setError('Failed to fetch news');
+        setError("Failed to fetch news");
       }
     } catch (err) {
-      setError('Network error occurred');
+      setError("Network error occurred");
     } finally {
       setLoading(false);
       setRefreshing(false);

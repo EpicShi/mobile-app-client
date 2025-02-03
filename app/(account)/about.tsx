@@ -8,11 +8,11 @@ import Constants from 'expo-constants';
 
 export default function AboutScreen() {
   const openPrivacyPolicy = () => {
-    Linking.openURL('https://epicshi.github.io/docs/privacy-policy.md');
+    Linking.openURL('https://raw.githubusercontent.com/EpicShi/docs/refs/heads/main/privacy-policy.md');
   };
 
   const openTermsOfService = () => {
-    Linking.openURL('https://epicshi.github.io/docs/terms-of-service.md');
+    Linking.openURL('https://raw.githubusercontent.com/EpicShi/docs/refs/heads/main/terms-of-service.md');
   };
 
   const openContributors = () => {
@@ -23,7 +23,7 @@ export default function AboutScreen() {
     <RNView style={styles.container}>
 
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <Animated.View 
+        <Animated.View
           entering={FadeInUp.springify()}
           style={styles.header}
         >
@@ -34,7 +34,7 @@ export default function AboutScreen() {
           <Text style={styles.subtitle}>App information and legal details</Text>
         </Animated.View>
 
-        <Animated.View 
+        <Animated.View
           entering={FadeInUp.delay(100).springify()}
           style={styles.section}
         >
@@ -53,7 +53,7 @@ export default function AboutScreen() {
           </RNView>
         </Animated.View>
 
-        <Animated.View 
+        <Animated.View
           entering={FadeInUp.delay(200).springify()}
           style={styles.section}
         >
@@ -71,7 +71,7 @@ export default function AboutScreen() {
           </TouchableOpacity>
         </Animated.View>
 
-        <Animated.View 
+        <Animated.View
           entering={FadeInUp.delay(300).springify()}
           style={styles.section}
         >
@@ -85,13 +85,13 @@ export default function AboutScreen() {
           </TouchableOpacity>
         </Animated.View>
 
-        <Animated.View 
+        <Animated.View
           entering={FadeInUp.delay(400).springify()}
           style={[styles.section, styles.copyrightSection]}
         >
           <MaterialIcons name="copyright" size={20} color="#71717a" />
           <Text style={styles.copyrightText}>
-            © 2024 Drishti. All rights reserved.
+            © 2025 Drishti. All rights reserved.
           </Text>
         </Animated.View>
       </ScrollView>

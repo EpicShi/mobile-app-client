@@ -28,3 +28,4 @@ yarn-error.*
 expo-env.d.ts
 
 .env
+.vercel
